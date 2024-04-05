@@ -1,5 +1,7 @@
 package com.microservice.example.forex.springbootmicroserviceforexservice;
 
+import com.microservice.example.forex.springbootmicroserviceforexservice.feign.CurrencyLayerApi;
+import com.microservice.example.forex.springbootmicroserviceforexservice.feign.layerResponse.CurrencyLayerBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.env.Environment;
@@ -9,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -20,14 +23,19 @@ public class ExchangeDataService {
     @Autowired
     Environment environment;
 
+    @Autowired
+    CurrencyLayerApi currencyLayerApi;
+
 
     @Scheduled(fixedRate = 130000)
     private void reStoreData() {
         rep.deleteAll();
-        ResponseEntity<List<ExchangeData>> response = new RestTemplate().exchange("http://localhost:1236/cur-data/live/live" ,HttpMethod.GET, null,new ParameterizedTypeReference<List<ExchangeData>>() {}) ;
-        // need to remove this hardcode
-       List<ExchangeData> result = response.getBody();
-        for (ExchangeData exchangeData : result) {
+       List<CurrencyLayerBean> result =  currencyLayerApi.currencyData("live");
+        for (CurrencyLayerBean currencyLayerBean : result) {
+            ExchangeData exchangeData = new ExchangeData();
+            exchangeData.setFrom(currencyLayerBean.getFrom());
+            exchangeData.setTo(currencyLayerBean.getTo());
+            exchangeData.setConversionIndex(currencyLayerBean.getConversionIndex());
             rep.save(exchangeData);
         }
     }

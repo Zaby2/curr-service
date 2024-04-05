@@ -21,6 +21,7 @@ public class ConversionController {
         Map<String, String > pathVariables = new HashMap<>();
         pathVariables.put("from", from);
         pathVariables.put("to", to);
+
         ResponseEntity<ConversionBean> response = new RestTemplate().getForEntity("http://localhost:1234/cur-ex/from/{from}/to/{to}", ConversionBean.class, pathVariables );
         ConversionBean result = response.getBody();
         return new ConversionBean(result.getId(), from, to, result.getConversionIndex(), quantity, quantity.multiply(result.getConversionIndex()), result.getPort());
