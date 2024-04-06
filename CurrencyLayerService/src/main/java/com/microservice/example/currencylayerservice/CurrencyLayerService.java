@@ -35,7 +35,7 @@ public class CurrencyLayerService {
                 }
             }
         JsonNode node = mapper.readTree(responseEntity.getBody());
-        for(int i = 1; i <data.size(); i++) {
+        for(int i = 1; i <data.size(); i++) { // how to fix this ?????
 
             dataSet.put(data.get(i), String.valueOf(node.at("/data/" + data.get(i))));
         }
