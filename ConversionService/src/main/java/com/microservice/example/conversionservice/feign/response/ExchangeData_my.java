@@ -18,5 +18,6 @@ public class ExchangeData_my {
     private String from;
     private String to;
     private BigDecimal conversionIndex;
+    private int port;
 
 }

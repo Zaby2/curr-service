@@ -26,6 +26,6 @@ public class ConversionController {
         pathVariables.put("from", from);
         pathVariables.put("to", to);
         ExchangeData_my result = bankServiceApi.retrieveExchangeValueM(from, to);
-        return new ConversionBean(result.getId(), from, to, result.getConversionIndex(), quantity, quantity.multiply(result.getConversionIndex()), 0);
+        return new ConversionBean(result.getId(), from, to, result.getConversionIndex(), quantity, quantity.multiply(result.getConversionIndex()), result.getPort());
     }
 }

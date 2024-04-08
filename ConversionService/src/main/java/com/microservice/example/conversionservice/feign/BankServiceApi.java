@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient("bank-service")
 public interface BankServiceApi {
-    @GetMapping("/cur-ex/from/{curFrom}/to/{curTO}/")
+    @GetMapping("/cur-ex/from/{curFrom}/to/{curTO}")
     public ExchangeData_my retrieveExchangeValueM(@PathVariable String curFrom, @PathVariable String curTO);
 
 }
