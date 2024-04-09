@@ -34,7 +34,7 @@ public class ExchangeDataServiceTest {
 
     @BeforeAll
     static void setUp() {
-        System.out.println("hi");
+        System.out.println("tests");
     }
     @Test
     void findByFromAndTo() {
