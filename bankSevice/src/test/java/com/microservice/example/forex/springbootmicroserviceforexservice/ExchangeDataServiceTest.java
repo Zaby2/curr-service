@@ -70,6 +70,6 @@ public class ExchangeDataServiceTest {
       exchangeDataService.reStoreData();
       verify(rep).deleteAll();
       verify(currencyLayerApi, times(1)).currencyData("live");
-     
+
     }
 }
