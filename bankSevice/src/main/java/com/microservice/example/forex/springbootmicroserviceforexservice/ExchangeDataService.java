@@ -28,7 +28,7 @@ public class ExchangeDataService {
 
 
     @Scheduled(fixedRate = 130000)
-    private void reStoreData() {
+    protected void reStoreData() {
         rep.deleteAll();
        List<CurrencyLayerBean> result =  currencyLayerApi.currencyData("live");
         for (CurrencyLayerBean currencyLayerBean : result) {
