@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,9 +21,14 @@ import java.util.*;
 @Service
 public class CurrencyLayerService {
 
+    @Value("${currency.data.source}")
+    private String currencyDataSource;
+    @Value("${currency.data.api.token}")
+    private String currencyDataApiToken;
+
     @SneakyThrows
     public List<CurrencyLayerBean> getCurrencyData() {
-        ResponseEntity<String> responseEntity = new RestTemplate().getForEntity("https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_OW3Jj3z6rCOyVBW3vOyPZhWCvifVEBEnlunYEqBV",String.class);
+        ResponseEntity<String> responseEntity = new RestTemplate().getForEntity(currencyDataSource + currencyDataApiToken,String.class);
         ObjectMapper mapper = new ObjectMapper();
         List<String> data = new ArrayList<>();
         Map<String, String> dataSet = new HashMap<>();
