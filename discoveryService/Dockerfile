@@ -9,5 +9,5 @@ RUN ./mvnw clean install
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /opt/app
 COPY --from=builder /opt/app/target/*.jar /opt/app/*.jar
-EXPOSE 1236
+EXPOSE 8761
 ENTRYPOINT ["java", "-jar", "/opt/app/*.jar"]
