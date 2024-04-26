@@ -8,17 +8,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.NaturalIdCache;
+
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class User {
+public class UserL {
     @Id
     @GeneratedValue
     private long id;
     private String userName;
     private String password;
+    private LocalDateTime registerDate;
 }
