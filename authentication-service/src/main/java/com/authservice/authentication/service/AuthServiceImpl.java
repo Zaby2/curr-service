@@ -20,22 +20,24 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     UserRepository userRepository;
 
-    public String registerUser(@NonNull UserDTO userDTO) {
+    public String registerUser(@NonNull UserDTO userDTO, HttpServletResponse response) {
         String accessToken = jwtProvider.generateAccessToken(userDTO);
         UserL user = new UserL();
         user.setUserName(userDTO.getUserName());
         user.setPassword(userDTO.getPassword());
         user.setRegisterDate(LocalDateTime.now());
         userRepository.save(user);
+        addTokenToCookie(accessToken, response);
         return accessToken;
     }
 
     @SneakyThrows
-    private void addTokenToCookie(@NonNull String token, HttpServletResponse httpServletResponse) {
+    public void addTokenToCookie(@NonNull String token, HttpServletResponse httpServletResponse) {
         Cookie cookie = new Cookie("auth_token", token);
         cookie.setMaxAge(7*24*60*60);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         httpServletResponse.addCookie(cookie);
+        httpServletResponse.setContentType("text/plain");
     }
 }

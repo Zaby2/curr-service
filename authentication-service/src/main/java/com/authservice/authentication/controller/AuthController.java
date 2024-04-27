@@ -14,14 +14,17 @@ public class AuthController {
 
     @Autowired
     AuthService authService;
-    @PostMapping("/login")
-    public void userLogin(@RequestBody UserDTO userDTO, HttpServletResponse response)
+    @GetMapping("/login")
+    public String userLogin(@CookieValue(name="auth_token", defaultValue = "") String token, HttpServletResponse response)
     {
-
+        if(token.isEmpty()) {
+            return "no";
+        }
+        return "yes";
     }
     @PostMapping("/register")
     public void userRegistration(@RequestBody UserDTO userDTO, HttpServletResponse response)
     {
-
+        authService.registerUser(userDTO, response);
     }
 }
