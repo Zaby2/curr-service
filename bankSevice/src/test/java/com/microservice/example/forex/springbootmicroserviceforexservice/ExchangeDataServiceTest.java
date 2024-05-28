@@ -38,10 +38,10 @@ public class ExchangeDataServiceTest {
     }
     @Test
     void findByFromAndTo() {
-        ExchangeData currencyLayerBean1 = new ExchangeData(1L, "USD", "RUB", BigDecimal.ONE);
-        ExchangeData currencyLayerBean2 = new ExchangeData(1L, "RUB", "RUN", BigDecimal.ONE);
-        ExchangeData currencyLayerBean3 = new ExchangeData(1L, "DSD", "EUR", BigDecimal.ONE);
-        ExchangeData currencyLayerBean4 = new ExchangeData(1L, "EUR", "RUN", BigDecimal.ONE);
+        ExchangeData currencyLayerBean1 = new ExchangeData(1L, "USD", "RUB", BigDecimal.ONE, 1);
+        ExchangeData currencyLayerBean2 = new ExchangeData(1L, "RUB", "RUN", BigDecimal.ONE, 1);
+        ExchangeData currencyLayerBean3 = new ExchangeData(1L, "DSD", "EUR", BigDecimal.ONE, 1);
+        ExchangeData currencyLayerBean4 = new ExchangeData(1L, "EUR", "RUN", BigDecimal.ONE, 1);
         Mockito.when(rep.findByFromAndTo("USD", "RUB")).thenReturn(List.of(currencyLayerBean1, currencyLayerBean2, currencyLayerBean3, currencyLayerBean4).stream()
                 .filter(currencyLayerBean ->
                         currencyLayerBean
@@ -65,7 +65,7 @@ public class ExchangeDataServiceTest {
       CurrencyLayerBean currencyLayerBean2 = new CurrencyLayerBean( "USD", "RUB", BigDecimal.ONE);
       CurrencyLayerBean currencyLayerBean3 = new CurrencyLayerBean( "USD", "RUB", BigDecimal.ONE);
       CurrencyLayerBean currencyLayerBean4 = new CurrencyLayerBean( "USD", "RUB", BigDecimal.ONE);
-      ExchangeData currencyLayerBean5 = new ExchangeData(1L, "USD", "RUB", BigDecimal.ONE);
+      ExchangeData currencyLayerBean5 = new ExchangeData(1L, "USD", "RUB", BigDecimal.ONE, 1);
       Mockito.when(currencyLayerApi.currencyData("live")).thenReturn(List.of(currencyLayerBean1, currencyLayerBean2, currencyLayerBean3,currencyLayerBean4));
       exchangeDataService.reStoreData();
       verify(rep).deleteAll();
