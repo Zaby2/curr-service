@@ -35,6 +35,18 @@ public class ExchangeDataRepositoryTest {
                 .to("EUR")
                 .build();
     }
+
+    @Test
+    public void deleteAllTest() {
+        exchangeDataRepository.save(exchangeData1);
+        exchangeDataRepository.save(exchangeData2);
+
+        exchangeDataRepository.deleteAll();
+
+        List<ExchangeData> exchangeData = exchangeDataRepository.findAll();
+
+        Assertions.assertEquals(0, exchangeData.size());
+    }
     @Test
     public void deletionTest() {
         exchangeDataRepository.save(exchangeData1);
